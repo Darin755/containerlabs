@@ -28,6 +28,7 @@ topology:
     pc1:
       kind: linux
       image: alpine:latest
+      group: server
       binds:
         - hosts:/etc/hosts
       exec:
@@ -38,6 +39,7 @@ topology:
     pc2:
       kind: linux
       image: alpine:latest
+      group: server
       binds:
         - hosts:/etc/hosts
       exec:
