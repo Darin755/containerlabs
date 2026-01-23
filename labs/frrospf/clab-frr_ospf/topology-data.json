@@ -1,0 +1,195 @@
+{
+  "name": "frr_ospf",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-a66358d4a83f",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "3fff:172:20:20::/64",
+        "ipv6-gw": "3fff:172:20:20::1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAb20QDN6D5YKLdatmZQDGQ0drQmyBr2e8deOdJUrxSy"],
+  "nodes": {
+    "pc1": {
+      "index": "0",
+      "shortname": "pc1",
+      "longname": "clab-frr_ospf-pc1",
+      "fqdn": "pc1.frr_ospf.io",
+      "group": "",
+      "labdir": "/home/darin/containerlab/frrospf/clab-frr_ospf/pc1",
+      "kind": "linux",
+      "image": "alpine:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-a66358d4a83f",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/darin/containerlab/frrospf/clab-frr_ospf/pc1",
+        "clab-node-longname": "clab-frr_ospf-pc1",
+        "clab-node-name": "pc1",
+        "clab-node-type": "",
+        "clab-owner": "darin",
+        "clab-topo-file": "/home/darin/containerlab/frrospf/lab.clab.yaml",
+        "containerlab": "frr_ospf"
+      },
+      "port-bindings": [
+      ]
+    },
+    "pc2": {
+      "index": "1",
+      "shortname": "pc2",
+      "longname": "clab-frr_ospf-pc2",
+      "fqdn": "pc2.frr_ospf.io",
+      "group": "",
+      "labdir": "/home/darin/containerlab/frrospf/clab-frr_ospf/pc2",
+      "kind": "linux",
+      "image": "alpine:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::5",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-a66358d4a83f",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/darin/containerlab/frrospf/clab-frr_ospf/pc2",
+        "clab-node-longname": "clab-frr_ospf-pc2",
+        "clab-node-name": "pc2",
+        "clab-node-type": "",
+        "clab-owner": "darin",
+        "clab-topo-file": "/home/darin/containerlab/frrospf/lab.clab.yaml",
+        "containerlab": "frr_ospf"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r1": {
+      "index": "2",
+      "shortname": "r1",
+      "longname": "clab-frr_ospf-r1",
+      "fqdn": "r1.frr_ospf.io",
+      "group": "",
+      "labdir": "/home/darin/containerlab/frrospf/clab-frr_ospf/r1",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-a66358d4a83f",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/darin/containerlab/frrospf/clab-frr_ospf/r1",
+        "clab-node-longname": "clab-frr_ospf-r1",
+        "clab-node-name": "r1",
+        "clab-node-type": "",
+        "clab-owner": "darin",
+        "clab-topo-file": "/home/darin/containerlab/frrospf/lab.clab.yaml",
+        "containerlab": "frr_ospf"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r2": {
+      "index": "3",
+      "shortname": "r2",
+      "longname": "clab-frr_ospf-r2",
+      "fqdn": "r2.frr_ospf.io",
+      "group": "",
+      "labdir": "/home/darin/containerlab/frrospf/clab-frr_ospf/r2",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-a66358d4a83f",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/darin/containerlab/frrospf/clab-frr_ospf/r2",
+        "clab-node-longname": "clab-frr_ospf-r2",
+        "clab-node-name": "r2",
+        "clab-node-type": "",
+        "clab-owner": "darin",
+        "clab-topo-file": "/home/darin/containerlab/frrospf/lab.clab.yaml",
+        "containerlab": "frr_ospf"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:1b:6f:e4",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:25:c2:3b",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:3d:d2:94",
+          "peer": "z"
+        },
+        "z": {
+          "node": "pc1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:f0:c7:e9",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r2",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:3c:e2:cc",
+          "peer": "z"
+        },
+        "z": {
+          "node": "pc2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:7f:17:fa",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

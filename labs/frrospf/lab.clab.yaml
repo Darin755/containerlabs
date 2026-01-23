@@ -1,0 +1,52 @@
+name: frr_ospf
+
+topology:
+  nodes:
+    r1:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r1:/etc/frr
+        - hosts:/etc/hosts
+      exec:
+        - "ip a add 10.9.9.1/24 dev eth1"
+        - "ip a add 10.1.1.1/24 dev eth2"
+        - "ip -6 a add 2006:db8:1::1/64 dev eth2"
+
+    r2:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r2:/etc/frr
+        - hosts:/etc/hosts
+
+      exec:
+        - "ip a add 10.9.9.2/24 dev eth1"
+        - "ip a add 10.1.2.1/24 dev eth2"
+        - "ip -6 a add 2006:db8:2::1/64 dev eth2"
+
+    pc1:
+      kind: linux
+      image: alpine:latest
+      binds:
+        - hosts:/etc/hosts
+      exec:
+        - "ip a add 10.1.1.10/24 dev eth1"
+        - "ip r add 10.0.0.0/8 via 10.1.1.1"
+        - "ip -6 a add 2006:db8:1::10/64 dev eth1"
+        - "ip -6 r add 2006:db8::/32 via 2006:db8:1::1"
+    pc2:
+      kind: linux
+      image: alpine:latest
+      binds:
+        - hosts:/etc/hosts
+      exec:
+        - "ip a add 10.1.2.10/24 dev eth1"
+        - "ip r add 10.0.0.0/8 via 10.1.2.1"
+        - "ip -6 a add 2006:db8:2::10/64 dev eth1"
+        - "ip -6 r add 2006:db8::/32 via 2006:db8:2::1"
+
+  links:
+    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r1:eth2", "pc1:eth1"]
+    - endpoints: ["r2:eth2", "pc2:eth1"]
