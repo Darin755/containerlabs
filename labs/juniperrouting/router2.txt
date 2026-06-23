@@ -1,0 +1,129 @@
+version 25.4R1.12;
+system {
+    host-name router2;
+    root-authentication {
+        encrypted-password "$6$kuGrNsUd$UTVnbMkAFwg5kdJEomWbQtwaTbUq3Gz9PFdCPMmJBfTdPF8wCMBjWNyZzSdIVg1TVGEKKeXpdxvBPOEtiG.9n."; ## SECRET-DATA
+    }
+    login {
+        user admin {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$6$RGxXWo5R$I6Gr4Whx32n8Ytnq9H7k4GV6yeMq2obrWE.VVxy7hMWoF6HpqLMCrwTXnTPpVsU8NdFLcJmfKscnI3w0BNqkc."; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        netconf {
+            ssh;
+        }
+        ssh {
+            root-login allow;
+        }
+    }
+    management-instance;
+}
+chassis {
+    fpc 0 {
+        pic 0 {
+            number-of-ports 12;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        description "link to r1";
+        unit 0 {
+            family inet {
+                address 10.9.1.2/24;
+            }
+            family inet6;
+        }
+    }
+    ge-0/0/1 {
+        description "link to r3";
+        unit 0 {
+            family inet {
+                address 10.9.2.2/24;
+            }
+            family inet6;
+        }
+    }
+    ge-0/0/5 {
+        description "subnet 2 lan";
+        unit 0 {
+            family inet {
+                address 10.1.2.1/24;
+            }
+            family inet6 {
+                address 2006:db8:b::1/64;
+            }
+        }
+    }
+    ge-0/0/6 {
+        description "other lan";
+        unit 0 {
+            family inet {
+                address 192.168.4.1/30;
+            }
+            family inet6 {
+                address 2006:db8:88::1/64;
+            }
+        }
+    }
+    fxp0 {
+        unit 0 {
+            family inet {
+                address 10.0.0.15/24;
+            }
+            family inet6 {
+                address 2001:db8::2/64;
+            }
+        }
+    }
+}
+routing-instances {
+    mgmt_junos {
+        routing-options {
+            rib mgmt_junos.inet6.0 {
+                static {
+                    route ::/0 next-hop 2001:db8::1;
+                }
+            }
+            static {
+                route 0.0.0.0/0 next-hop 10.0.0.2;
+            }
+        }
+    }
+}
+protocols {
+    ospf {
+        area 0.0.0.0 {
+            interface ge-0/0/0.0;
+            interface ge-0/0/1.0;
+            interface ge-0/0/5.0 {
+                passive;
+            }
+            interface ge-0/0/6.0 {
+                passive;
+            }
+        }
+    }
+    ospf3 {
+        area 0.0.0.0 {
+            interface ge-0/0/0.0;
+            interface ge-0/0/1.0;
+            interface ge-0/0/5.0 {
+                passive;
+            }
+            interface ge-0/0/6.0 {
+                passive;
+            }
+        }
+    }
+    lldp {
+        interface ge-0/0/0;
+        interface ge-0/0/1;
+    }
+}
+

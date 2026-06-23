@@ -1,0 +1,116 @@
+version 25.4R1.12;
+system {
+    host-name router3;
+    root-authentication {
+        encrypted-password "$6$fW5UB8tV$lLUzYOCUHvKCz9t6yfGf7H5Tr4y8yxBkyqKUJw7o2xnsF6YqCdrQltkrkBVPAESpe9zoYP4sDoP6Iz6UfAgms."; ## SECRET-DATA
+    }
+    login {
+        user admin {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$6$c5grJITs$f.8w/KpR.Icod4fHZTJLNT3991jVwhJK3a/YN43Tb7dPoSmXKT4sBJGoFOoulvYDNGE1Oa2Cu7BHuTgN94/SP0"; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        netconf {
+            ssh;
+        }
+        ssh {
+            root-login allow;
+        }
+    }
+    management-instance;
+}
+chassis {
+    fpc 0 {
+        pic 0 {
+            number-of-ports 12;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        description "link to r2";
+        unit 0 {
+            family inet {
+                address 10.9.2.3/24;
+            }
+            family inet6;
+        }
+    }
+    ge-0/0/1 {
+        description "link to r1";
+        unit 0 {
+            family inet {
+                address 10.9.3.3/24;
+            }
+            family inet6;
+        }
+    }
+    ge-0/0/5 {
+        description "subnet 3 lan";
+        unit 0 {
+            family inet {
+                address 10.1.3.1/24;
+            }
+            family inet6 {
+                address 2006:db8:c::1/64;
+            }
+        }
+    }
+    fxp0 {
+        unit 0 {
+            family inet {
+                address 10.0.0.15/24;
+            }
+            family inet6 {
+                address 2001:db8::2/64;
+            }
+        }
+    }
+}
+routing-instances {
+    mgmt_junos {
+        routing-options {
+            rib mgmt_junos.inet6.0 {
+                static {
+                    route ::/0 next-hop 2001:db8::1;
+                }
+            }
+            static {
+                route 0.0.0.0/0 next-hop 10.0.0.2;
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 192.168.4.0/30 next-hop 10.9.2.2;
+    }
+}
+protocols {
+    ospf {
+        area 0.0.0.0 {
+            interface ge-0/0/0.0;
+            interface ge-0/0/1.0;
+            interface ge-0/0/5.0 {
+                passive;
+            }
+        }
+    }
+    ospf3 {
+        area 0.0.0.0 {
+            interface ge-0/0/0.0;
+            interface ge-0/0/1.0;
+            interface ge-0/0/5.0 {
+                passive;
+            }
+        }
+    }
+    lldp {
+        interface ge-0/0/0;
+        interface ge-0/0/1;
+    }
+}

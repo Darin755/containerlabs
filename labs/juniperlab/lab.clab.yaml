@@ -1,0 +1,28 @@
+name: juniperlab
+topology:
+  nodes:
+    router1:
+      kind: juniper_vjunosrouter
+      image: vrnetlab/juniper_vjunos-router:25.4R1.12
+      startup-config: routerconf.txt
+    switch1:
+      kind: juniper_vjunosswitch
+      image: vrnetlab/juniper_vjunos-switch:25.4R1.12
+      startup-config: switchconf.txt
+    dummy1:
+      kind: linux
+      image: alpine:latest
+  links:
+    - endpoints: ["switch1:eth1", "router1:eth1"]
+    - endpoints: ["switch1:eth2", "dummy1:eth1"]
+#      - "switch1:eth3"
+#      - "switch1:eth4"
+#      - "switch1:eth5"
+#      - "switch1:eth6"
+#      - "switch1:eth7"
+#      - "switch1:eth8"
+#      - "switch1:eth8"
+#      - "switch1:eth9"
+#      - "router1:eth2"
+#      - "router1:eth3"
+

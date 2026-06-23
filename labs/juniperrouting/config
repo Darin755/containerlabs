@@ -1,0 +1,53 @@
+set interfaces ge-0/0/0 description "link to r2"
+set interfaces ge-0/0/0 unit 0 family inet address 10.9.1.1/24
+set interfaces ge-0/0/1 description "link to r3"
+set interfaces ge-0/0/1 unit 0 family inet address 10.9.3.1/24
+set interfaces ge-0/0/5 description "subnet 1 lan"
+set interfaces ge-0/0/5 unit 0 family inet address 10.1.1.1/24
+set interfaces ge-0/0/5 unit 0 family inet6 address 2006:db8:a::1/64
+set protocols lldp interface ge-0/0/0
+set protocols lldp interface ge-0/0/1
+set protocols ospf area 0 interface ge-0/0/0
+set protocols ospf area 0 interface ge-0/0/1
+set protocols ospf area 0 interface ge-0/0/5 passive
+set protocols ospf3 area 0 interface ge-0/0/0
+set protocols ospf3 area 0 interface ge-0/0/1
+set protocols ospf3 area 0 interface ge-0/0/5 passive
+
+set interfaces ge-0/0/0 description "link to r1"
+set interfaces ge-0/0/0 unit 0 family inet address 10.9.1.2/24
+set interfaces ge-0/0/1 description "link to r3"
+set interfaces ge-0/0/1 unit 0 family inet address 10.9.2.2/24
+set interfaces ge-0/0/5 description "subnet 2 lan"
+set interfaces ge-0/0/5 unit 0 family inet address 10.1.2.1/24
+set interfaces ge-0/0/5 unit 0 family inet6 address 2006:db8:b::1/64
+set interfaces ge-0/0/6 description "other lan"
+set interfaces ge-0/0/6 unit 0 family inet address 192.168.4.1/30
+set interfaces ge-0/0/6 unit 0 family inet6 address 2006:db8:88::1/64
+set protocols lldp interface ge-0/0/0
+set protocols lldp interface ge-0/0/1
+set protocols ospf area 0 interface ge-0/0/0
+set protocols ospf area 0 interface ge-0/0/1
+set protocols ospf area 0 interface ge-0/0/5 passive
+set protocols ospf area 0 interface ge-0/0/6 passive
+set protocols ospf3 area 0 interface ge-0/0/0
+set protocols ospf3 area 0 interface ge-0/0/1
+set protocols ospf3 area 0 interface ge-0/0/5 passive
+set protocols ospf3 area 0 interface ge-0/0/6 passive
+
+set interfaces ge-0/0/0 description "link to r2"
+set interfaces ge-0/0/0 unit 0 family inet address 10.9.2.3/24
+set interfaces ge-0/0/1 description "link to r1"
+set interfaces ge-0/0/1 unit 0 family inet address 10.9.3.3/24
+set interfaces ge-0/0/5 description "subnet 3 lan"
+set interfaces ge-0/0/5 unit 0 family inet address 10.1.3.1/24
+set interfaces ge-0/0/5 unit 0 family inet6 address 2006:db8:c::1/64
+set protocols lldp interface ge-0/0/0
+set protocols lldp interface ge-0/0/1
+set routing-options static route 192.168.4.0/30 next-hop 10.9.2.2
+set protocols ospf area 0 interface ge-0/0/0
+set protocols ospf area 0 interface ge-0/0/1
+set protocols ospf area 0 interface ge-0/0/5 passive
+set protocols ospf3 area 0 interface ge-0/0/0
+set protocols ospf3 area 0 interface ge-0/0/1
+set protocols ospf3 area 0 interface ge-0/0/5 passive
